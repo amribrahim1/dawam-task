@@ -1,0 +1,28 @@
+{
+  "name": "dawam-task",
+  "version": "1.0.0",
+  "description": "Dawam Task for Backend Software Engineer position",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-babel": "babel -d ./build ./src -s",
+    "build": "npm run build-babel",
+    "start": "npm run build && node ./build/server.js",
+    "nodemon": "nodemon ./src/server.js --exec babel-node"
+  },
+  "author": "Amr Eraky",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.4",
+    "@babel/core": "^7.15.5",
+    "@babel/node": "^7.15.4",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.4",
+    "nodemon": "^2.0.12"
+  }
+}

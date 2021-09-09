@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/config/routes.js"],"names":["app","use","userApi"],"mappings":";;;;;;;;;AAAA;;eAEe,kBAAAA,GAAG,EAAI;AAClBA,EAAAA,GAAG,CAACC,GAAJ,CAAQ,MAAR,EAAgBC,gBAAhB;AACH,C","sourcesContent":["import userApi from '../api/user';\r\n\r\nexport default app => {\r\n    app.use('/api', userApi);\r\n}"],"file":"routes.js"}
