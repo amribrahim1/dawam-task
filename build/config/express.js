@@ -14,7 +14,9 @@ var _cors = _interopRequireDefault(require("cors"));
 // import { auth } from './Util';
 var _default = function _default(app) {
   app.use((0, _cors["default"])());
-  app.use(_express["default"].urlencoded());
+  app.use(_express["default"].urlencoded({
+    extended: true
+  }));
   app.use(_express["default"].json()); // app.use(auth)
 };
 

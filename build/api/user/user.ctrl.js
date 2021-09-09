@@ -63,12 +63,21 @@ function _register() {
             return newUser.save(function (err, user) {
               if (err) {
                 return res.status(400).send({
-                  data: "Failed to add user.",
+                  ok: false,
+                  message: "Failed to add user.",
                   status_code: 200
                 });
               } else {
                 return res.status(200).send({
-                  data: user
+                  ok: true,
+                  user: {
+                    email: user.email,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    phone: user.phone,
+                    token: user.token,
+                    active: user.active
+                  }
                 });
               }
             });
@@ -130,7 +139,7 @@ function _login() {
                       firstName: user.firstName,
                       lastName: user.lastName,
                       phone: user.phone,
-                      token: user.token,
+                      token: user.generateAuthToken(),
                       active: user.active
                     }
                   });
