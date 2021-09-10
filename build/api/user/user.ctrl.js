@@ -38,14 +38,16 @@ function _register() {
             user = _context.sent;
 
             if (_lodash["default"].isEmpty(user)) {
-              _context.next = 8;
+              _context.next = 7;
               break;
             }
 
-            res.status(400).send("A user with this Email is exists");
-            return _context.abrupt("return");
+            return _context.abrupt("return", res.status(400).send({
+              ok: false,
+              message: "A user with '".concat(email, "' Email is exists.")
+            }));
 
-          case 8:
+          case 7:
             newUser = new _user["default"]();
             newUser.firstName = firstName;
             newUser.lastName = lastName;
@@ -53,50 +55,51 @@ function _register() {
             newUser.phone = phone;
             newUser.password = password;
             newUser.setPassword(req.body.password);
-            _context.next = 17;
+            _context.next = 16;
             return newUser.generateAuthToken();
 
-          case 17:
+          case 16:
             token = _context.sent;
             newUser.token = token;
-            _context.next = 21;
+            _context.next = 20;
             return newUser.save(function (err, user) {
               if (err) {
                 return res.status(400).send({
                   ok: false,
-                  message: "Failed to add user.",
-                  status_code: 200
+                  error: err.message
                 });
               } else {
                 return res.status(200).send({
                   ok: true,
                   user: {
+                    id: user._id,
                     email: user.email,
                     firstName: user.firstName,
                     lastName: user.lastName,
                     phone: user.phone,
                     token: user.token,
-                    active: user.active
+                    active: user.active,
+                    type: user.type
                   }
                 });
               }
             });
 
-          case 21:
-            _context.next = 26;
+          case 20:
+            _context.next = 25;
             break;
 
-          case 23:
-            _context.prev = 23;
+          case 22:
+            _context.prev = 22;
             _context.t0 = _context["catch"](0);
             res.status(400).send(_context.t0.message);
 
-          case 26:
+          case 25:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 23]]);
+    }, _callee, null, [[0, 22]]);
   }));
   return _register.apply(this, arguments);
 }
@@ -121,7 +124,7 @@ function _login() {
               if (err) {
                 res.status(400).send({
                   ok: false,
-                  err: err
+                  error: err.message
                 });
               }
 
@@ -135,12 +138,14 @@ function _login() {
                   return res.status(200).send({
                     ok: true,
                     user: {
+                      id: user._id,
                       email: user.email,
                       firstName: user.firstName,
                       lastName: user.lastName,
                       phone: user.phone,
                       token: user.generateAuthToken(),
-                      active: user.active
+                      active: user.active,
+                      type: user.type
                     }
                   });
                 } else {

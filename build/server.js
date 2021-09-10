@@ -63,6 +63,7 @@ var Server = /*#__PURE__*/function () {
 }();
 
 var server = new Server().app;
+module.exports = server;
 var _default = server;
 exports["default"] = _default;
 //# sourceMappingURL=server.js.map

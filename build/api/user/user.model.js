@@ -41,18 +41,24 @@ var UserSchema = new _mongoose["default"].Schema({
     "default": true,
     type: Boolean
   },
-  salt: String
+  salt: String,
+  type: {
+    type: String,
+    "default": 'user'
+  }
 }, {
   timestamps: true
 });
 
 UserSchema.methods.generateAuthToken = function () {
   var token = _jsonwebtoken["default"].sign({
+    id: this._id,
     email: this.email,
     firstName: this.firstName,
     lastName: this.lastName,
-    type: "user"
-  }, "AmrEraky");
+    type: this.type
+  }, "AmrEraky"); // I can Replace 'AmrEraky' with any app key
+
 
   this.token === token;
   return token;
@@ -73,7 +79,7 @@ UserSchema.methods.validPassword = function (password) {
   return this.password === hash;
 };
 
-var _default = _mongoose["default"].model('users', UserSchema);
+var _default = _mongoose["default"].model('User', UserSchema);
 
 exports["default"] = _default;
 //# sourceMappingURL=user.model.js.map

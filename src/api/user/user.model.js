@@ -10,17 +10,19 @@ const UserSchema = new mongoose.Schema({
     phone: { type: String },
     token: { type: String, default: null},
     active: { default: true, type: Boolean },
-    salt : String
+    salt : String,
+    type: { type: String, default: 'user'},
 },{ timestamps: true });
 
 
 UserSchema.methods.generateAuthToken = function() {
     const token = jwt.sign({
+        id: this._id,
         email: this.email,
         firstName: this.firstName,
         lastName: this.lastName,
-        type: "user",
-    }, "AmrEraky");
+        type: this.type,
+    }, "AmrEraky");     // I can Replace 'AmrEraky' with any app key
     this.token === token; 
     return token;
 };
@@ -43,4 +45,4 @@ UserSchema.methods.validPassword = function(password) {
     return this.password === hash; 
 };
 
-export default mongoose.model('users', UserSchema);
+export default mongoose.model('User', UserSchema);
