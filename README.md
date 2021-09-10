@@ -19,6 +19,7 @@ The user can create todo-list for him and category them sorted by categories
 - [nodemon](https://nodemon.io/) restarting the node application when file changes.
 
 ### The app's files
+```
 ├── build
 ├── src
 │   ├── api
@@ -49,3 +50,4 @@ The user can create todo-list for him and category them sorted by categories
 ├── .babelrc
 ├── README.md
 └── package.json
+```
